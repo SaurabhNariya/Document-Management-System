@@ -21,7 +21,6 @@
     "prebuild": "npm-run-all build:html",
     "build": "./node_modules/.bin/babel-node tools/build.js",
     "postbuild": "./node_modules/.bin/babel-node serverProd.js"
-    "type" : "module"
 
   },
   "nyc": {
