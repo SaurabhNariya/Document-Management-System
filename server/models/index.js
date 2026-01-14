@@ -4,12 +4,13 @@ import Sequelize from 'sequelize';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 
-import configPkg from '../config/config.js';
-const config = configPkg.default || configPkg;
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
+const config = require('../config/config.js');
 
 dotenv.config();
 
-// 🔹 ESM replacements
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const basename = path.basename(__filename);
