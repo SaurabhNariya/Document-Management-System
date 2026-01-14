@@ -2,15 +2,23 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import log from 'npmlog';
 import path from 'path';
-import roleRouter from './server/routes/roleRoutes';
-import userRouter from './server/routes/userRoutes';
-import documentRouter from './server/routes/documentRoutes';
-import searchRouter from './server/routes/searchRoutes';
+import { fileURLToPath } from 'url';
+import swaggerJSDoc from 'swagger-jsdoc';
 
-const pathurl = path.join(__dirname, '/server/routes/*.js');
+// 🔹 ES module __dirname fix
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// 🔹 ROUTES (IMPORTANT: .js extension)
+import roleRouter from './server/routes/roleRoutes.js';
+import userRouter from './server/routes/userRoutes.js';
+import documentRouter from './server/routes/documentRoutes.js';
+import searchRouter from './server/routes/searchRoutes.js';
 
 const app = express();
-const swaggerJSDoc = require('swagger-jsdoc');
+
+// 🔹 Swagger
+const pathurl = path.join(__dirname, '/server/routes/*.js');
 
 const swaggerDefinition = {
   info: {
@@ -21,37 +29,43 @@ const swaggerDefinition = {
   host: 'localhost:7000',
   basePath: '/',
 };
-// options for the swagger docs
+
 const options = {
   swaggerDefinition,
   apis: [pathurl],
 };
 
-// initialize swagger-jsdoc
 const swaggerSpec = swaggerJSDoc(options);
+
 app.get('/swagger.json', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
   res.send(swaggerSpec);
 });
 
-const port = process.env.PORT;
+// 🔹 PORT FIX
+const port = process.env.PORT || 10000;
 
+// 🔹 Middlewares
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static(path.join(__dirname, 'client/dist')));
 
+// 🔹 Routes
 app.use('/api/roles', roleRouter);
 app.use('/api/users', userRouter);
 app.use('/api/documents', documentRouter);
 app.use('/api/search', searchRouter);
+
 app.get('*', (req, res) => {
-  res.status(200).send(
-    { message: 'welcome to Document Management System API' });
+  res.status(200).json({
+    message: 'Welcome to Document Management System API',
+  });
 });
+
+// 🔹 Start Server
 app.listen(port, () => {
-  log.info('express app started on port', `${port}`);
+  log.info('Express app started on port', port);
 });
 
 export default app;
-
