@@ -1,7 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 import Sequelize from 'sequelize';
-import config from '../config/config.js';
+import configPkg from '../config/config.js';
+const config = configPkg.default || configPkg;
+
 
 
 require('dotenv').config();
