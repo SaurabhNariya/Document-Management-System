@@ -1,6 +1,8 @@
 import jwt from 'jsonwebtoken';
 
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
+
 
 const authentication = {
   verifyUser(req, res, next) {
