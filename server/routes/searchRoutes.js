@@ -2,6 +2,8 @@ import { Router } from 'express';
 import documentController from '../controllers/documentController';
 import userController from '../controllers/userController';
 import authentication from '../middlewares/authentication';
+import searchController from '../controllers/searchController.js';
+
 /**
  * @swagger
  * definition:

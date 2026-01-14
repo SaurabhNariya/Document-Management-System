@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import userController from '../controllers/userController';
+import userController from '../controllers/userController.js';
 import documentController from '../controllers/documentController';
 import authentication from '../middlewares/authentication';
 
