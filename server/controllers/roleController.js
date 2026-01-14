@@ -1,4 +1,5 @@
-import { Role, User } from '../models';
+import { Role, User } from '../models/index.js';
+
 
 const roleController = {
   create(req, res) {

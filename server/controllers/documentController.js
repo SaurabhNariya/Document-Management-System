@@ -1,4 +1,4 @@
-import { Document, User } from '../models';
+import { Document, User } from '../models/index.js';
 
 const documentController = {
   create(req, res) {
