@@ -1,4 +1,6 @@
-import { Role, User } from '../models/index.js';
+import db from '../models/index.js';
+
+const { Role, User } = db;
 
 
 const roleController = {

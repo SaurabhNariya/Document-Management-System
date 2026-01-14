@@ -1,4 +1,5 @@
-import { Document, User } from '../models/index.js';
+import db from '../models/index.js';
+const { Document } = db;
 
 const documentController = {
   create(req, res) {
