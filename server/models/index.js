@@ -1,36 +1,47 @@
 import fs from 'fs';
 import path from 'path';
 import Sequelize from 'sequelize';
+import dotenv from 'dotenv';
+import { fileURLToPath } from 'url';
+
 import configPkg from '../config/config.js';
 const config = configPkg.default || configPkg;
 
+dotenv.config();
 
+// 🔹 ESM replacements
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const basename = path.basename(__filename);
 
-require('dotenv').config();
-
-const basename = path.basename(module.filename);
-const env = process.env.NODE_ENV;
+const env = process.env.NODE_ENV || 'production';
 const settings = config[env];
+
 const db = {};
 
 const sequelize = new Sequelize(settings.url, settings);
 
-fs
-  .readdirSync(__dirname)
-  .filter(file =>
-    (file.indexOf('.') !== 0) &&
-    (file !== basename) &&
-    (file.slice(-3) === '.js'))
-  .forEach((file) => {
-    const model = sequelize.import(path.join(__dirname, file));
+// 🔹 Load all models manually (no sequelize.import in ESM)
+for (const file of fs.readdirSync(__dirname)) {
+  if (
+    file.indexOf('.') !== 0 &&
+    file !== basename &&
+    file.endsWith('.js')
+  ) {
+    const modelModule = await import(path.join(__dirname, file));
+    const model = modelModule.default(sequelize, Sequelize.DataTypes);
     db[model.name] = model;
-  });
+  }
+}
 
+// 🔹 Associations
 Object.keys(db).forEach((modelName) => {
-  db[modelName].associate(db);
+  if (db[modelName].associate) {
+    db[modelName].associate(db);
+  }
 });
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-module.exports = db;
+export default db;
