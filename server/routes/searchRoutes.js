@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import documentController from '../controllers/documentController';
-import userController from '../controllers/userController';
-import authentication from '../middlewares/authentication';
+import documentController from '../controllers/documentController.js';
+import userController from '../controllers/userController.js';
+import authentication from '../middlewares/authentication.js';
 import searchController from '../controllers/searchController.js';
 
 /**

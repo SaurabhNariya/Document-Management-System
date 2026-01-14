@@ -21,6 +21,8 @@
     "prebuild": "npm-run-all build:html",
     "build": "./node_modules/.bin/babel-node tools/build.js",
     "postbuild": "./node_modules/.bin/babel-node serverProd.js"
+    "type" : "module"
+
   },
   "nyc": {
     "sourceMap": false,
@@ -132,6 +134,7 @@
     "url-loader": "0.5.8",
     "webpack-dev-middleware": "1.10.2",
     "webpack-hot-middleware": "2.18.0"
+    
   },
   "repository": {
     "type": "git",

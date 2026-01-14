@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import documentController from '../controllers/documentController.js';
-import authentication from '../middlewares/authentication';
+import authentication from '../middlewares/authentication.js';
 
 const DocumentRouter = Router();
 /**

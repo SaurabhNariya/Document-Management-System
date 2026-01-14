@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import userController from '../controllers/userController.js';
-import documentController from '../controllers/documentController';
-import authentication from '../middlewares/authentication';
+import documentController from '../controllers/documentController.js';
+import authentication from '../middlewares/authentication.js';
 
 const userRouter = Router();
 /**
