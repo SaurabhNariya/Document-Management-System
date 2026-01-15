@@ -1,8 +1,13 @@
-import { Router } from 'express';
-import documentController from '../controllers/documentController.js';
-import authentication from '../middlewares/authentication.js';
+'use strict';
 
-const DocumentRouter = Router();
+const express = require('express');
+const Router = express.Router();
+
+const someController = require('../controllers/someController');
+const authentication = require('../middlewares/authentication');
+
+module.exports = Router;
+
 /**
  * @swagger
  * definition:

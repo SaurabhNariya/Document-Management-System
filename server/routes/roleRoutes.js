@@ -1,8 +1,12 @@
-import { Router } from 'express';
-import roleController from '../controllers/roleController.js';
-import authentication from '../middlewares/authentication.js';
+'use strict';
 
-const roleRouter = Router();
+const express = require('express');
+const Router = express.Router();
+
+const someController = require('../controllers/someController');
+const authentication = require('../middlewares/authentication');
+
+module.exports = Router;
 
  /**
    * @swagger

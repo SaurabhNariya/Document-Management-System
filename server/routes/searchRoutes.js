@@ -1,7 +1,13 @@
-import { Router } from 'express';
-import documentController from '../controllers/documentController.js';
-import userController from '../controllers/userController.js';
-import authentication from '../middlewares/authentication.js';
+'use strict';
+
+const express = require('express');
+const Router = express.Router();
+
+const someController = require('../controllers/someController');
+const authentication = require('../middlewares/authentication');
+
+module.exports = Router;
+
 
 
 /**
