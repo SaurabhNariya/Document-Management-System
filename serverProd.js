@@ -1,19 +1,15 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import log from 'npmlog';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import swaggerJSDoc from 'swagger-jsdoc';
+'use strict';
 
-// 🔹 ES module __dirname fix
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const express = require('express');
+const bodyParser = require('body-parser');
+const log = require('npmlog');
+const path = require('path');
+const swaggerJSDoc = require('swagger-jsdoc');
 
-// 🔹 ROUTES (IMPORTANT: .js extension)
-import roleRouter from './server/routes/roleRoutes.js';
-import userRouter from './server/routes/userRoutes.js';
-import documentRouter from './server/routes/documentRoutes.js';
-import searchRouter from './server/routes/searchRoutes.js';
+const roleRouter = require('./server/routes/roleRoutes');
+const userRouter = require('./server/routes/userRoutes');
+const documentRouter = require('./server/routes/documentRoutes');
+const searchRouter = require('./server/routes/searchRoutes');
 
 const app = express();
 
@@ -42,7 +38,7 @@ app.get('/swagger.json', (req, res) => {
   res.send(swaggerSpec);
 });
 
-// 🔹 PORT FIX
+// 🔹 PORT
 const port = process.env.PORT || 10000;
 
 // 🔹 Middlewares
@@ -65,7 +61,7 @@ app.get('*', (req, res) => {
 
 // 🔹 Start Server
 app.listen(port, () => {
-  log.info('Express app started on port', port);
+  log.info('express app started on port', `${port}`);
 });
 
-export default app;
+module.exports = app;
